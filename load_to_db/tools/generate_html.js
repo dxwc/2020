@@ -26,6 +26,8 @@ require('../load.js')(true, true)
             padding: 0;
             width: 100%;
             overflow-x: hidden;
+            background: white;
+            color: black;
         }
 
         .candidate, .disclaimer, table
@@ -38,13 +40,14 @@ require('../load.js')(true, true)
         {
             text-align: center;
         }
-    </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', () =>
+
+        h3 a
         {
-            // TODO
-        });
-    </script>
+            text-decoration: none;
+            border: none;
+            color: inherit;
+        }
+    </style>
 </head>
 <body>
 <h1>All ${data.length} Candidates Who Filed For 2020 Presidency</h1>
@@ -61,7 +64,9 @@ require('../load.js')(true, true)
         (
 `
 <span class='candidate'>
-    <h3 class='name' title='${can.id}'>${can.full_name}</h3>
+    <h3 class='name' title='${can.id}'>
+        <a id='${can.id}' href='#${can.id.trim()}'>${can.full_name}</a>
+    </h3>
     Party: <b class='party'>${can.party}</b><br>
     <i class='addr'>${can.a_city}, ${can.a_state}, ${can.a_zip}</i><br>
     <i class='reciept'>Statement recieved on ${can.receipt}</i><br>
