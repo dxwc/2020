@@ -28,24 +28,35 @@ require('../load.js')(true, true)
             overflow-x: hidden;
         }
 
-        .candidate, .disclaimer
+        .candidate, .disclaimer, table
         {
             display: table;
             margin: 0 auto;
         }
 
-        h1
+        h1, h2
         {
             text-align: center;
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () =>
+        {
+            // TODO
+        });
+    </script>
 </head>
 <body>
 <h1>All ${data.length} Candidates Who Filed For 2020 Presidency</h1>
 `
-    )
+    );
+
+    let parties = { };
+
     data.forEach((can) =>
     {
+        if(!parties[can.party]) parties[can.party] = 1;
+        else                    parties[can.party]++;
         console.log
         (
 `
@@ -60,6 +71,14 @@ require('../load.js')(true, true)
 </span>`
         );
     });
+    console.log(`<h2>Number of Parties and Candidates in each party</h2>`)
+    console.log(`<table>`);
+    parties = Object.entries(parties).sort((a, b) => b[1] - a[1]);
+    parties.forEach((p) =>
+    {
+        console.log(`<tr><td>${p[0]}</td> <td>${p[1]}</td>`);
+    })
+    console.log(`</table>`);
 
     console.log
     (
