@@ -3,6 +3,8 @@ let data;
 require('./download.js')(true)
 .then(async (file) =>
 {
+    data = require(file);
+
     console.log
     (
 `<!DOCTYPE html>
@@ -35,10 +37,9 @@ require('./download.js')(true)
     </style>
 </head>
 <body>
-<h1>All Presidential Candidates Who Filed For 2020 Candidacy</h1>
+<h1>All ${data.length} Candidates Who Filed For 2020 Presidency</h1>
 `
     )
-    data = require(file);
     data.forEach((can) =>
     {
         console.log
