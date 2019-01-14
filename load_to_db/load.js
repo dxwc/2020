@@ -1,4 +1,4 @@
-async function load(silent)
+async function load(silent, dont_close_db)
 {
     let db  = require('./connect.js').db;
     let pgp = require('./connect.js').pgp;
@@ -43,9 +43,10 @@ async function load(silent)
 
     delete data;
     if(!silent) say.clean_say_dont_replace('✓ Done saving in DB');
-    return pgp.end();
+    if(!dont_close_db) pgp.end();
+    return;
 }
 
-if(process.argv[1] === __filename) load(false).catch((err) => console.error(err));
+if(process.argv[1] === __filename) load().catch((err) => console.error(err));
 
 module.exports = load;
