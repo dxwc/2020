@@ -80,6 +80,8 @@ async function setup()
     }
 
     clean_say_dont_replace(`✓ ${data_file}`);
+
+    return data_file;
 }
 
 if(process.argv[1] === __filename) setup().catch((err) => console.error(err));
