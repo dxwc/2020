@@ -1,37 +1,11 @@
-const pgp         = require('pg-promise')();
-const db          = pgp
-(
-    process.env.DATABASE_URL || `postgres://can_admin:can_pass@localhost:5432/can`
-);
-
-global.previous_length = 0;
-
-function stdout_write(text)
+async function load(silent)
 {
-    process.stdout.write
-    (
-        ' '.repeat(global.previous_length ? previous_length : text.length) + '\r'
-    );
+    let db  = require('./connect.js').db;
+    let pgp = require('./connect.js').pgp;
+    let say = require('../say.js');
 
-    global.previous_length = text.length;
-    process.stdout.write(text + '\r');
-}
-
-function clean_say_dont_replace(text)
-{
-    process.stdout.write
-    (
-        ' '.repeat(global.previous_length ? previous_length : text.length) + '\r'
-    );
-
-    console.info(text);
-}
-
-require('../download.js')()
-.then(async (data_file) =>
-{
-    stdout_write('- Inserting data in db...');
-    let data = require(data_file);
+    if(!silent) say.stdout_write('- Inserting data in db...');
+    let data = require(await require('../download.js')(silent));
     for(let i = 0; i < data.length; ++i)
     {
         await db.none
@@ -68,10 +42,10 @@ require('../download.js')()
     );
 
     delete data;
-    clean_say_dont_replace('✓ Done saving in DB');
+    if(!silent) say.clean_say_dont_replace('✓ Done saving in DB');
     return pgp.end();
-})
-.catch((err) =>
-{
-    clean_say_dont_replace(err);
-});
+}
+
+if(process.argv[1] === __filename) load(false).catch((err) => console.error(err));
+
+module.exports = load;

@@ -6,29 +6,7 @@
 let https = require('https');
 let path  = require('path');
 let fs    = require('fs');
-
-global.previous_length = 0;
-
-function stdout_write(text)
-{
-    process.stdout.write
-    (
-        ' '.repeat(global.previous_length ? previous_length : text.length) + '\r'
-    );
-
-    global.previous_length = text.length;
-    process.stdout.write(text + '\r');
-}
-
-function clean_say_dont_replace(text)
-{
-    process.stdout.write
-    (
-        ' '.repeat(global.previous_length ? previous_length : text.length) + '\r'
-    );
-
-    console.info(text);
-}
+let say   = require('./say.js');
 
 /**
  * @param {String} url
@@ -49,12 +27,10 @@ function download(url)
     });
 }
 
-
-
 async function setup(silent)
 {
     let data;
-    if(!silent) stdout_write('Getting data...');
+    if(!silent) say.stdout_write('Getting data...');
     let source = `https://classic.fec.gov/data/Form2Filer.do?` +
     `format=json&election_yr=2020&CAND_OFFICE=P`;
 
@@ -79,7 +55,7 @@ async function setup(silent)
         fs.writeFileSync(data_file, JSON.stringify(data, null, '\t'));
     }
 
-    if(!silent) clean_say_dont_replace(`✓ Downloaded ${data_file}`);
+    if(!silent) say.clean_say_dont_replace(`✓ Downloaded ${data_file}`);
 
     return data_file;
 }
