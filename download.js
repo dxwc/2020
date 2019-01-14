@@ -1,3 +1,8 @@
+/**
+ * Downloads 2020 presidential statement of candidacy data to
+ * ./candidate_data/<date>.json file
+ */
+
 let https = require('https');
 let path  = require('path');
 let fs    = require('fs');
@@ -45,10 +50,10 @@ function download(url)
 }
 
 
-let data;
 
 async function setup()
 {
+    let data;
     stdout_write('Getting data...');
     let source = `https://classic.fec.gov/data/Form2Filer.do?` +
     `format=json&election_yr=2020&CAND_OFFICE=P`;
@@ -73,22 +78,10 @@ async function setup()
 
         fs.writeFileSync(data_file, JSON.stringify(data, null, '\t'));
     }
-    else
-    {
-        data = require(data_file);
-    }
 
-    clean_say_dont_replace(`✓ Data loaded: ${data.length} entries.`);
+    clean_say_dont_replace(`✓ ${data_file}`);
 }
 
-setup()
-.then(() =>
-{
-    // TODO:
-    // pdf : https://docquery.fec.gov/pdf/753/<BEGIN_IMAGE_NUMBER>/<BEGIN_IMAGE_NUMBER>_000001.pdf
-    // html: https://docquery.fec.gov/cgi-bin/fecimg/?_<BEGIN_IMAGE_NUMBER>+0
-})
-.catch((err) =>
-{
-    console.error(err);
-});
+if(process.argv[1] === __filename) setup().catch((err) => console.error(err));
+
+module.exports = setup;
