@@ -58,7 +58,7 @@ async function setup()
     let source = `https://classic.fec.gov/data/Form2Filer.do?` +
     `format=json&election_yr=2020&CAND_OFFICE=P`;
 
-    let download_dir = path.join(__dirname, 'candidate_data');
+    let download_dir = path.join(path.dirname(__filename), 'candidate_data');
     let data_file = path.join
     (download_dir, new Date().toLocaleDateString().replace(/\//gi, '_') + '.json');
 
