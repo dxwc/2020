@@ -51,10 +51,10 @@ function download(url)
 
 
 
-async function setup()
+async function setup(silent)
 {
     let data;
-    stdout_write('Getting data...');
+    if(!silent) stdout_write('Getting data...');
     let source = `https://classic.fec.gov/data/Form2Filer.do?` +
     `format=json&election_yr=2020&CAND_OFFICE=P`;
 
@@ -79,11 +79,11 @@ async function setup()
         fs.writeFileSync(data_file, JSON.stringify(data, null, '\t'));
     }
 
-    clean_say_dont_replace(`✓ Downloaded ${data_file}`);
+    if(!silent) clean_say_dont_replace(`✓ Downloaded ${data_file}`);
 
     return data_file;
 }
 
-if(process.argv[1] === __filename) setup().catch((err) => console.error(err));
+if(process.argv[1] === __filename) setup(false).catch((err) => console.error(err));
 
 module.exports = setup;

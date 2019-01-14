@@ -5,3 +5,7 @@
 ---
 
 + `node load_to_db/index.js` saves json and loads to db
+
+---
+
++ `node gen.js` saves and then prints an html page summery of data to stdout
