@@ -50,7 +50,7 @@ require('./download.js')(true)
     Party: <b class='party'>${can['PARTY']}</b><br>
     <i class='addr'>${can['CITY']}, ${can['STATE']}, ${can['ZIP']}</i><br>
     <i class='reciept'>Statement recieved on ${can['RECEIPT_DATE']}</i><br>
-    <a href='http://docquery.fec.gov/cgi-bin/fecimg/?_${can['BEGIN_IMAGE_NUMBER']}+0'>
+    <a href='https://docquery.fec.gov/cgi-bin/fecimg/?_${can['BEGIN_IMAGE_NUMBER']}+0'>
         View statement of candidacy
     </a>
 </span>`
