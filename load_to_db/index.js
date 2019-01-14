@@ -53,6 +53,20 @@ require('../download.js')()
         );
     }
 
+    await db.none
+    (
+        // CASTRO, JULIAN is currently marked as party: Unknown even though the
+        // statement paper says Democratic
+        `
+        UPDATE candidate
+        SET
+            party='Democratic Party',
+            p_code='DEM'
+        WHERE
+            id='P00009092'
+        `
+    );
+
     delete data;
     clean_say_dont_replace('✓ Done saving in DB');
     return pgp.end();
