@@ -1,10 +1,14 @@
-let data;
+let pgp = require('../connect.js').pgp;
+let db  = require('../connect.js').db;
 
-require('./download.js')(true)
-.then(async (file) =>
+require('../load.js')(true, true)
+.then(() =>
 {
-    data = require(file);
-
+    return db
+    .many(`SELECT *, to_char(receipt, 'mm/dd/yyyy') AS receipt FROM candidate`);
+})
+.then((data) =>
+{
     console.log
     (
 `<!DOCTYPE html>
@@ -46,16 +50,17 @@ require('./download.js')(true)
         (
 `
 <span class='candidate'>
-    <h3 class='name' title='${can['CANDIDATE_ID']}'>${can['CANDIDATE_NAME']}</h3>
-    Party: <b class='party'>${can['PARTY']}</b><br>
-    <i class='addr'>${can['CITY']}, ${can['STATE']}, ${can['ZIP']}</i><br>
-    <i class='reciept'>Statement recieved on ${can['RECEIPT_DATE']}</i><br>
-    <a href='https://docquery.fec.gov/cgi-bin/fecimg/?_${can['BEGIN_IMAGE_NUMBER']}+0'>
+    <h3 class='name' title='${can.id}'>${can.full_name}</h3>
+    Party: <b class='party'>${can.party}</b><br>
+    <i class='addr'>${can.a_city}, ${can.a_state}, ${can.a_zip}</i><br>
+    <i class='reciept'>Statement recieved on ${can.receipt}</i><br>
+    <a href='https://docquery.fec.gov/cgi-bin/fecimg/?_${can.image_num}+0'>
         View statement of candidacy
     </a>
 </span>`
         );
     });
+
     console.log
     (
 `
@@ -71,5 +76,13 @@ require('./download.js')(true)
 </body>
 </html>
 `
-    )
+    );
+})
+.then(() =>
+{
+    pgp.end();
+})
+.catch((err) =>
+{
+    console.error(err);
 });

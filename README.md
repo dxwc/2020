@@ -8,4 +8,5 @@
 
 ---
 
-+ `node gen.js` saves and then prints an html page summery of data to stdout
++ `node ./load_to_db/tools/generate_html.js` saves and then prints an html page summery
+  of data to stdout
