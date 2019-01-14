@@ -79,7 +79,7 @@ async function setup()
         fs.writeFileSync(data_file, JSON.stringify(data, null, '\t'));
     }
 
-    clean_say_dont_replace(`✓ ${data_file}`);
+    clean_say_dont_replace(`✓ Downloaded ${data_file}`);
 
     return data_file;
 }
