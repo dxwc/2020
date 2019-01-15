@@ -12,7 +12,16 @@ async function load(silent, dont_close_db)
         (
             `
             INSERT INTO candidate VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
-            ON CONFLICT DO NOTHING`,
+            ON CONFLICT (ID) DO UPDATE
+            SET
+                full_name = EXCLUDED.full_name,
+                party     = EXCLUDED.party,
+                p_code    = EXCLUDED.p_code,
+                a_city    = EXCLUDED.a_city,
+                a_state   = EXCLUDED.a_state,
+                a_zip     = EXCLUDED.a_zip,
+                receipt   = EXCLUDED.receipt,
+                image_num = EXCLUDED.image_num`,
             [
                 data[i]['CANDIDATE_ID'],
                 data[i]['CANDIDATE_NAME'],
