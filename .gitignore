@@ -1,2 +1,4 @@
 candidate_data
 *node_modules
+*.md
+*.html
