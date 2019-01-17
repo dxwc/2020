@@ -3,7 +3,7 @@ let db   = require('../connect.js').db;
 let fs   = require('fs');
 let path = require('path');
 
-const save_dir = path.join(path.dirname(__filename), 'pages');
+const save_dir = process.argv[2] || path.join(path.dirname(__filename), 'pages');
 let current_file = path.join(save_dir, 'temp' + '.md')
 
 // require('../load.js')(true, true)
@@ -26,16 +26,15 @@ Promise.resolve()
             console.log('Generating', d.id + '.md');
             let text =
 `---
-title: ${d.full_name} - 2020 Presidential Candidate
+title: ${d.full_name}
 ---
 
-${d.party.toLowerCase().indexOf('party') !== -1 ?
++ ${d.party.toLowerCase().indexOf('party') !== -1 ?
     `**${d.party}**` :
     `**Party**: ${d.party}`}
++ 2020 presidential candidate
++ From ${d.a_city}, ${d.a_state}, ${d.a_zip}
 
-From ${d.a_city}, ${d.a_state}, ${d.a_zip}
-
-----
 `;
             fs.writeFileSync
             (current_file, text, { encoding : 'utf-8'})
