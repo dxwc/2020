@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "parse-full-name": "^1.2.3",
     "pg-promise": "^8.5.4"
   }
 }

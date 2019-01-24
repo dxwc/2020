@@ -1,3 +1,5 @@
+const { parseFullName } = require('parse-full-name');
+
 async function load(silent, dont_close_db)
 {
     let db  = require('./connect.js').db;
@@ -8,6 +10,17 @@ async function load(silent, dont_close_db)
     let data = require(await require('../download.js')(silent));
     for(let i = 0; i < data.length; ++i)
     {
+        let name = '';
+
+        let n = parseFullName(data[i]['CANDIDATE_NAME'], 'all', -1, false);
+        name += n.title ? n.title + ' ' : '';
+        name += n.first ? n.first + ' ' : '';
+        name += n.middle ? n.middle + ' ' : '';
+        name += n.last ? n.last + ' ' : '';
+        name += n.nick ? n.nick + ' ' : '';
+        name += n.suffix ? n.suffix + ' ' : '';
+        name = name.trim();
+
         await db.none
         (
             `
@@ -24,7 +37,7 @@ async function load(silent, dont_close_db)
                 image_num = EXCLUDED.image_num`,
             [
                 data[i]['CANDIDATE_ID'],
-                data[i]['CANDIDATE_NAME'],
+                name,
                 data[i]['PARTY'],
                 data[i]['PARTY_CODE'],
                 data[i]['CITY'],
