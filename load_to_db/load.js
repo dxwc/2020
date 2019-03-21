@@ -63,6 +63,19 @@ async function load(silent, dont_close_db)
         `
     );
 
+    await db.none
+    (
+        // P00010892 : Highly likely it is fake candidate
+        // Note: P00007286 is not fake, there's a outline.com post on it
+        // P00009415 : probably someone's cat: http://www.seymourcats.com/
+        `
+        DELETE FROM candidate
+        WHERE id='P00010892' OR id='P00009415'
+        `
+    );
+
+    // It's someone's cat, see: http://www.seymourcats.com/
+
     delete data;
     if(!silent) say.clean_say_dont_replace('✓ Done saving in DB');
     if(!dont_close_db) pgp.end();
