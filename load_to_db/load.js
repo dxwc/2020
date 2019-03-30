@@ -68,13 +68,21 @@ async function load(silent, dont_close_db)
         // P00010892 : Highly likely it is fake candidate
         // Note: P00007286 is not fake, there's a outline.com post on it
         // P00009415 : probably someone's cat: http://www.seymourcats.com/
+        // P60007895: Real person, but decided to ignore age limit requirement, see:
+        // https://twitter.com/iElijahManley/status/1086724758962663425
+        // P00009365: very likely a joke candidate https://youtu.be/eet-O2wKvwA
+        // P00011072 : multiple name on form, likely cartoon caracter joke candidate:
+        // https://azumanga.fandom.com/wiki/Chiyo_Mihama
         `
         DELETE FROM candidate
-        WHERE id='P00010892' OR id='P00009415'
+        WHERE
+            id='P00010892' OR
+            id='P00009415' OR
+            id='P60007895' OR
+            id='P00009365' OR
+            id='P00011072'
         `
     );
-
-    // It's someone's cat, see: http://www.seymourcats.com/
 
     delete data;
     if(!silent) say.clean_say_dont_replace('✓ Done saving in DB');
