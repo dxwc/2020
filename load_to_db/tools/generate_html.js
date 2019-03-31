@@ -36,7 +36,7 @@ require('../load.js')(true, true)
             margin: 0 auto;
         }
 
-        h1, h2
+        h1, h2, h6
         {
             text-align: center;
         }
@@ -50,7 +50,8 @@ require('../load.js')(true, true)
     </style>
 </head>
 <body>
-<h1>All ${data.length} Candidates Who Filed For 2020 Presidency</h1>
+<h1>Candidates Who Filed For 2020 Presidency</h1>
+<h6>${data.length} and counting</h6>
 `
     );
 

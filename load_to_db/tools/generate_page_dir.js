@@ -19,7 +19,7 @@ Promise.resolve()
     console.log
     (
 `---
-title: All ${data.length} Candidates Who Filed For 2020 Presidency
+title: Candidates Who Filed For 2020 Presidency (${data.length})
 ---
 
 

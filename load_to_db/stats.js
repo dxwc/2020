@@ -14,10 +14,6 @@ async function num_of_parties()
         ORDER BY num DESC
         `
     )
-    .then((res) =>
-    {
-        console.log(res);
-    })
     .catch((err) =>
     {
         console.error(err);
@@ -26,6 +22,6 @@ async function num_of_parties()
 
 (async () =>
 {
-    await num_of_parties();
+    console.log(await num_of_parties());
     pgp.end();
 })()

@@ -73,6 +73,7 @@ async function load(silent, dont_close_db)
         // P00009365: very likely a joke candidate https://youtu.be/eet-O2wKvwA
         // P00011072 : multiple name on form, likely cartoon caracter joke candidate:
         // https://azumanga.fandom.com/wiki/Chiyo_Mihama
+        // P00011122 : The name and address are clearly joke
         `
         DELETE FROM candidate
         WHERE
@@ -80,7 +81,8 @@ async function load(silent, dont_close_db)
             id='P00009415' OR
             id='P60007895' OR
             id='P00009365' OR
-            id='P00011072'
+            id='P00011072' OR
+            id='P00011122'
         `
     );
 
