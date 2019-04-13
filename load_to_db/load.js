@@ -74,6 +74,7 @@ async function load(silent, dont_close_db)
         // P00011072 : multiple name on form, likely cartoon caracter joke candidate:
         // https://azumanga.fandom.com/wiki/Chiyo_Mihama
         // P00011122 : The name and address are clearly joke
+        // P00011379: "The meme comittee" and name doens't make sense
         `
         DELETE FROM candidate
         WHERE
@@ -82,7 +83,8 @@ async function load(silent, dont_close_db)
             id='P60007895' OR
             id='P00009365' OR
             id='P00011072' OR
-            id='P00011122'
+            id='P00011122' OR
+            id='P00011379'
         `
     );
 
