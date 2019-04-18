@@ -75,6 +75,7 @@ async function load(silent, dont_close_db)
         // https://azumanga.fandom.com/wiki/Chiyo_Mihama
         // P00011122 : The name and address are clearly joke
         // P00011379: "The meme comittee" and name doens't make sense
+        // P00011411: fake name including adolf, city as england
         `
         DELETE FROM candidate
         WHERE
@@ -84,7 +85,8 @@ async function load(silent, dont_close_db)
             id='P00009365' OR
             id='P00011072' OR
             id='P00011122' OR
-            id='P00011379'
+            id='P00011379' OR
+            id='P00011411'
         `
     );
 
