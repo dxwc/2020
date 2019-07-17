@@ -45,6 +45,8 @@ h1, h2
 
     let parties = { };
 
+    console.log(`<span style='display: table; margin: 0 auto'>
+    To see list of candidate from each party: <a href='/party'>go here</a></span>`);
     console.log('<table>');
     data.forEach((can) =>
     {
@@ -66,6 +68,9 @@ h1, h2
         );
     });
     console.log('</table>');
+
+    console.log(`\n\n\n<span style='display: table; margin: 0 auto'>
+    To see list of candidate from each party: <a href='/party'>go here</a></span>`);
 
     console.log(`<h2>Number of Parties and Candidates in each party</h2>`)
     console.log(`<table>`);

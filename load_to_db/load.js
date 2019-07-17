@@ -8,6 +8,7 @@ async function load(silent, dont_close_db)
 
     if(!silent) say.stdout_write('- Inserting data in db...');
     let data = require(await require('../download.js')(silent));
+    await db.none(`DELETE FROM candidate`);
     for(let i = 0; i < data.length; ++i)
     {
         let name = '';
@@ -49,6 +50,8 @@ async function load(silent, dont_close_db)
         );
     }
 
+    /* Don't Editorialize, show what's given
+
     await db.none
     (
         // CASTRO, JULIAN is currently marked as party: Unknown even though the
@@ -76,6 +79,7 @@ async function load(silent, dont_close_db)
         // P00011122 : The name and address are clearly joke
         // P00011379: "The meme comittee" and name doens't make sense
         // P00011411: fake name including adolf, city as england
+        // P00011775 : fake name ? + communist party (not included yet)
         `
         DELETE FROM candidate
         WHERE
@@ -89,6 +93,7 @@ async function load(silent, dont_close_db)
             id='P00011411'
         `
     );
+    */
 
     delete data;
     if(!silent) say.clean_say_dont_replace('✓ Done saving in DB');
