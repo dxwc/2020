@@ -3,6 +3,6 @@
     "@sindresorhus/slugify": "^0.9.1",
     "filenamify": "^4.1.0",
     "parse-full-name": "^1.2.3",
-    "pg-promise": "^8.5.4"
+    "pg-promise": "^11.5.0"
   }
 }
